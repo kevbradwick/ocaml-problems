@@ -1,2 +1,3 @@
 (test
- (name problems))
+ (name lists)
+ (libraries base stdio lists))
