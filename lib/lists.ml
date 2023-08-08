@@ -32,3 +32,5 @@ let length lst =
 let rev lst =
   let rec aux acc = function [] -> acc | a :: t -> aux (a :: acc) t in
   aux [] lst
+
+let is_palindrome lst = rev lst = lst

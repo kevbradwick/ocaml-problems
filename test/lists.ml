@@ -25,6 +25,11 @@ let test_rev _ =
   assert_equal [ 3; 2; 1 ] (rev [ 1; 2; 3 ]);
   assert_equal [ 1 ] (rev [ 1 ])
 
+let test_is_palindrome _ =
+  assert_equal true (is_palindrome []);
+  assert_equal true (is_palindrome [ "a"; "b"; "a" ]);
+  assert_equal false (is_palindrome [ "a"; "b" ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -33,6 +38,7 @@ let suite =
          "test_last" >:: test_last;
          "test_last_two" >:: test_last_two;
          "test_rev" >:: test_rev;
+         "test_is_palindrome" >:: test_is_palindrome;
        ]
 
 let () = run_test_tt_main suite
