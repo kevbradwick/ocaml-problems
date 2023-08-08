@@ -34,3 +34,13 @@ let rev lst =
   aux [] lst
 
 let is_palindrome lst = rev lst = lst
+
+type 'a node = One of 'a | Many of 'a node list
+
+let flatten lst =
+  let rec aux acc = function
+    | [] -> acc
+    | One a :: tail -> aux (a :: acc) tail
+    | Many a :: tail -> aux (aux acc a) tail
+  in
+  rev (aux [] lst)

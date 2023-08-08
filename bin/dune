@@ -1,4 +1,3 @@
 (executable
  (public_name problems)
- (name main)
- (libraries lists))
+ (name main))

@@ -30,6 +30,12 @@ let test_is_palindrome _ =
   assert_equal true (is_palindrome [ "a"; "b"; "a" ]);
   assert_equal false (is_palindrome [ "a"; "b" ])
 
+let test_flatten _ =
+  let case =
+    [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ]
+  in
+  assert_equal [ "a"; "b"; "c"; "d"; "e" ] (flatten case)
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -39,6 +45,7 @@ let suite =
          "test_last_two" >:: test_last_two;
          "test_rev" >:: test_rev;
          "test_is_palindrome" >:: test_is_palindrome;
+         "test_flatten" >:: test_flatten;
        ]
 
 let () = run_test_tt_main suite
