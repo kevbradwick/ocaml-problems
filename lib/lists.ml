@@ -37,4 +37,15 @@ let nth lst index =
   aux 0 lst
 
 let%test "get the nth element of a list" =
-  nth [] 2 = None && nth [ 1; 2; 3 ] 1 = Some 2
+  nth [] 2 = None && nth [ 1; 2; 3 ] 1 = Some 2 && nth [ 1; 2; 3 ] 5 = None
+
+let length lst =
+  let rec aux count acc =
+    match acc with
+    | [] -> count
+    | _ :: t -> if t = [] then count + 1 else aux (count + 1) t
+  in
+  aux 0 lst
+
+let%test "test length of list" =
+  length [] = 0 && length [ 1 ] = 1 && length [ 1; 2; 3; 4 ] = 4
