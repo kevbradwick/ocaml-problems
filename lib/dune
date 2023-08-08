@@ -1,5 +1,5 @@
 (library
- (name lists)
+ (public_name problems)
  (libraries base stdio)
  (inline_tests)
  (preprocess
