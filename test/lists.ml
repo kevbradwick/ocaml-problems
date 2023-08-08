@@ -20,6 +20,11 @@ let test_last_two _ =
   assert_equal (last_two [ 1 ]) None;
   assert_equal (last_two [ 1; 2; 3; 4 ]) (Some (3, 4))
 
+let test_rev _ =
+  assert_equal [] (rev []);
+  assert_equal [ 3; 2; 1 ] (rev [ 1; 2; 3 ]);
+  assert_equal [ 1 ] (rev [ 1 ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -27,6 +32,7 @@ let suite =
          "test_nth" >:: test_nth;
          "test_last" >:: test_last;
          "test_last_two" >:: test_last_two;
+         "test_rev" >:: test_rev;
        ]
 
 let () = run_test_tt_main suite

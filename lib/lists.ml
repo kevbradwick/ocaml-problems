@@ -1,3 +1,6 @@
+(* List problems              *)
+(* https://ocaml.org/problems *)
+
 let rec last = function [] -> None | [ a ] -> Some a | _ :: t -> last t
 
 (*
@@ -25,3 +28,7 @@ let length lst =
     | _ :: t -> if t = [] then count + 1 else aux (count + 1) t
   in
   aux 0 lst
+
+let rev lst =
+  let rec aux acc = function [] -> acc | a :: t -> aux (a :: acc) t in
+  aux [] lst
