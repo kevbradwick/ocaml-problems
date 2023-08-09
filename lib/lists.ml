@@ -45,6 +45,19 @@ let flatten lst =
   in
   rev (aux [] lst)
 
+(* Logic - if two values are the same, drop them, otherwise recurse and push the first
+   onto the next iteration *)
 let rec compress = function
   | a :: (b :: _ as t) -> if a = b then compress t else a :: compress t
   | rest -> rest
+
+let pack lst =
+  (* current is a list of the same elements, accumulator is the new list that is returned *)
+  let rec aux current acc = function
+    | [] -> acc
+    | [ x ] -> (x :: current) :: acc
+    | a :: (b :: _ as t) ->
+        if a = b then aux (a :: current) acc t
+        else aux [] ((a :: current) :: acc) t
+  in
+  rev (aux [] [] lst)

@@ -41,6 +41,11 @@ let test_compress _ =
   assert_equal [ "a"; "b"; "c" ] (compress [ "a"; "b"; "b"; "c" ]);
   assert_equal [] (compress [])
 
+let test_pack _ =
+  assert_equal [ [ "a" ]; [ "b"; "b" ] ] (pack [ "a"; "b"; "b" ]);
+  assert_equal [] (pack []);
+  assert_equal [ [ "a" ] ] (pack [ "a" ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -52,6 +57,7 @@ let suite =
          "test_is_palindrome" >:: test_is_palindrome;
          "test_flatten" >:: test_flatten;
          "test_compress" >:: test_compress;
+         "test_pack" >:: test_pack;
        ]
 
 let () = run_test_tt_main suite
