@@ -44,3 +44,7 @@ let flatten lst =
     | Many a :: tail -> aux (aux acc a) tail
   in
   rev (aux [] lst)
+
+let rec compress = function
+  | a :: (b :: _ as t) -> if a = b then compress t else a :: compress t
+  | rest -> rest

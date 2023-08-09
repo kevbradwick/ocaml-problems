@@ -36,6 +36,11 @@ let test_flatten _ =
   in
   assert_equal [ "a"; "b"; "c"; "d"; "e" ] (flatten case)
 
+let test_compress _ =
+  assert_equal [ "a" ] (compress [ "a"; "a" ]);
+  assert_equal [ "a"; "b"; "c" ] (compress [ "a"; "b"; "b"; "c" ]);
+  assert_equal [] (compress [])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -46,6 +51,7 @@ let suite =
          "test_rev" >:: test_rev;
          "test_is_palindrome" >:: test_is_palindrome;
          "test_flatten" >:: test_flatten;
+         "test_compress" >:: test_compress;
        ]
 
 let () = run_test_tt_main suite
