@@ -46,6 +46,12 @@ let test_pack _ =
   assert_equal [] (pack []);
   assert_equal [ [ "a" ] ] (pack [ "a" ])
 
+let test_encode _ =
+  assert_equal
+    [ (4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e") ]
+    (encode
+       [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -58,6 +64,7 @@ let suite =
          "test_flatten" >:: test_flatten;
          "test_compress" >:: test_compress;
          "test_pack" >:: test_pack;
+         "test_encode" >:: test_encode;
        ]
 
 let () = run_test_tt_main suite
