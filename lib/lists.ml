@@ -93,13 +93,12 @@ let encode_modified lst =
 - : string list = ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"]
 *)
 and decode lst =
-  let rec make_list char acc = function
-    | 0 -> acc
-    | n -> make_list char (char :: acc) (n - 1)
+  let rec make_list char acc c =
+    if c = 0 then acc else make_list char (char :: acc) (c - 1)
   in
   let rec aux acc = function
     | [] -> acc
     | One a :: tail -> aux (a :: acc) tail
-    | Many (i, c) :: tail -> aux (make_list c [] i @ acc) tail
+    | Many (i, c) :: tail -> aux (make_list c acc i) tail
   in
   rev (aux [] lst)
