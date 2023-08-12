@@ -74,3 +74,17 @@ let encode lst =
         if a = b then aux (count + 1) acc t else aux 0 ((count + 1, a) :: acc) t
   in
   rev (aux 0 [] lst)
+
+type 'a rle = One of 'a | Many of int * 'a
+
+let encode_modified lst =
+  let create_t count ch = if count = 1 then One ch else Many (count, ch) in
+
+  let rec aux count acc = function
+    | [] -> acc
+    | [ x ] -> create_t (count + 1) x :: acc
+    | a :: (b :: _ as t) ->
+        if a = b then aux (count + 1) acc t
+        else aux 0 (create_t (count + 1) a :: acc) t
+  in
+  rev (aux 0 [] lst)

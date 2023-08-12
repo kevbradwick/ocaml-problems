@@ -31,10 +31,9 @@ let test_is_palindrome _ =
   assert_equal false (is_palindrome [ "a"; "b" ])
 
 let test_flatten _ =
-  let case =
-    [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ]
-  in
-  assert_equal [ "a"; "b"; "c"; "d"; "e" ] (flatten case)
+  assert_equal
+    [ "a"; "b"; "c"; "d"; "e" ]
+    (flatten [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ])
 
 let test_compress _ =
   assert_equal [ "a" ] (compress [ "a"; "a" ]);
@@ -52,6 +51,8 @@ let test_encode _ =
     (encode
        [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ])
 
+let test_encode_modified _ = assert_equal [ One "a" ] (encode_modified [ "a" ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -65,6 +66,7 @@ let suite =
          "test_compress" >:: test_compress;
          "test_pack" >:: test_pack;
          "test_encode" >:: test_encode;
+         "test_encode_modified" >:: test_encode_modified;
        ]
 
 let () = run_test_tt_main suite
