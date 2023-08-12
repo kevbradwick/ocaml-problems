@@ -79,7 +79,6 @@ type 'a rle = One of 'a | Many of int * 'a
 
 let encode_modified lst =
   let create_t count ch = if count = 1 then One ch else Many (count, ch) in
-
   let rec aux count acc = function
     | [] -> acc
     | [ x ] -> create_t (count + 1) x :: acc
@@ -88,3 +87,19 @@ let encode_modified lst =
         else aux 0 (create_t (count + 1) a :: acc) t
   in
   rev (aux 0 [] lst)
+
+(*
+#  decode [Many (4, "a"); One "b"; Many (2, "c"); Many (2, "a"); One "d"; Many (4, "e")];;
+- : string list = ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"]
+*)
+and decode lst =
+  let rec make_list char acc = function
+    | 0 -> acc
+    | n -> make_list char (char :: acc) (n - 1)
+  in
+  let rec aux acc = function
+    | [] -> acc
+    | One a :: tail -> aux (a :: acc) tail
+    | Many (i, c) :: tail -> aux (make_list c [] i @ acc) tail
+  in
+  rev (aux [] lst)
