@@ -102,3 +102,10 @@ and decode lst =
     | Many (i, c) :: tail -> aux (make_list c acc i) tail
   in
   rev (aux [] lst)
+
+let duplicate lst =
+  let rec aux acc = function
+    | [] -> acc
+    | a :: tail -> aux (a :: a :: acc) tail
+  in
+  rev (aux [] lst)

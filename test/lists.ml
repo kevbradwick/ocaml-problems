@@ -57,6 +57,10 @@ let test_decode _ =
   assert_equal [ "a"; "b"; "b"; "c" ]
     (decode [ One "a"; Many (2, "b"); One "c" ])
 
+let test_duplicate _ =
+  assert_equal [] (duplicate []);
+  assert_equal [ "a"; "a"; "b"; "b" ] (duplicate [ "a"; "b" ])
+
 let suite =
   "ExampleTestList"
   >::: [
@@ -72,6 +76,7 @@ let suite =
          "test_encode" >:: test_encode;
          "test_encode_modified" >:: test_encode_modified;
          "test_decode" >:: test_decode;
+         "test_duplicate" >:: test_duplicate;
        ]
 
 let () = run_test_tt_main suite
