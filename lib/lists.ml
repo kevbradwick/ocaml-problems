@@ -103,9 +103,4 @@ and decode lst =
   in
   rev (aux [] lst)
 
-let duplicate lst =
-  let rec aux acc = function
-    | [] -> acc
-    | a :: tail -> aux (a :: a :: acc) tail
-  in
-  rev (aux [] lst)
+let rec duplicate = function [] -> [] | a :: tail -> a :: a :: duplicate tail
