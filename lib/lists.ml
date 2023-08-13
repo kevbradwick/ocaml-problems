@@ -104,3 +104,22 @@ and decode lst =
   rev (aux [] lst)
 
 let rec duplicate = function [] -> [] | a :: tail -> a :: a :: duplicate tail
+
+let replicate lst b =
+  let rec repeat ch acc = function
+    | 0 -> acc
+    | _ as i -> repeat ch (ch :: acc) (i - 1)
+  in
+  List.concat (List.map (fun ch -> repeat ch [] b) lst)
+
+let%test "replicate test" = [ "a"; "a"; "b"; "b" ] = replicate [ "a"; "b" ] 2
+
+let drop_nth lst n =
+  let rec drop acc i = function
+    | h :: t -> if i = n then drop acc 1 t else drop (h :: acc) (i + 1) t
+    | [] -> acc
+  in
+  rev (drop [] 1 lst)
+
+let%test "drop_nth" =
+  drop_nth [ "a"; "b"; "c"; "d"; "e"; "f" ] 2 = [ "a"; "c"; "e" ]
