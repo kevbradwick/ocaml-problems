@@ -123,3 +123,15 @@ let drop_nth lst n =
 
 let%test "drop_nth" =
   drop_nth [ "a"; "b"; "c"; "d"; "e"; "f" ] 2 = [ "a"; "c"; "e" ]
+
+let split lst n =
+  let rec copy acc n = function
+    | [] -> (acc, [])
+    | h :: t ->
+        if n = 0 then (List.rev acc, h :: t) else copy (h :: acc) (n - 1) t
+  in
+  copy [] n lst
+
+let%test "split" =
+  split [ "a"; "b"; "c"; "d"; "e"; "f"; "g"; "h"; "i"; "j" ] 3
+  = ([ "a"; "b"; "c" ], [ "d"; "e"; "f"; "g"; "h"; "i"; "j" ])
